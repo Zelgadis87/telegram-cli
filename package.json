@@ -1,0 +1,38 @@
+{
+  "name": "@zelgadis87/telegram-cli",
+  "version": "1.0.0",
+  "description": "A simple Telegram command-line utility. Supports operating a Telegram Bot from the command line.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npm run eslint",
+    "eslint": "eslint -c .eslintrc ./src/**/*.js",
+    "pretest": "npm run lint",
+    "test": "mocha ./src/**/*.spec.js",
+    "coverage": "nyc npm run test",
+    "postcoverage": "nyc report --reporter=lcov",
+    "preversion": "npm run eslint -- --rule=mocha/no-exclusive-tests:error --rule=mocha/no-pending-tests:error --rule=mocha/no-skipped-tests:error && npm run coverage",
+    "start": "node index.js -t=1"
+  },
+  "keywords": [
+    "telegram",
+    "telegram-bot",
+    "bot",
+    "cli"
+  ],
+  "author": "Zelgadis87",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "eslint": "^4.0.0",
+    "eslint-plugin-mocha": "^4.11.0",
+    "mocha": "^3.4.2",
+    "nyc": "^11.0.2"
+  },
+  "dependencies": {
+    "@zelgadis87/telegram-bot": "^1.0.2",
+    "bluebird": "^3.5.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "yargs": "^8.0.2"
+  }
+}
