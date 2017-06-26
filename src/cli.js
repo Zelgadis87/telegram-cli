@@ -2,6 +2,7 @@
 let TelegramBot = require( '@zelgadis87/telegram-bot' )
 	, Bluebird = require( 'bluebird' )
 	, yargs = require( 'yargs' )
+	, fs = require( 'fs' )
 	;
 
 function cli( args ) {
@@ -43,6 +44,20 @@ function cli( args ) {
 				type: 'string'
 			}
 		}, argv => argv.exec( 'sendMessage', argv.chat, argv.message ) )
+		.command( 'message-file <chat> <file>', 'Sends a message in the given chat using the given file as input.', {
+			chat: {
+				alias: 'c',
+				demandOption: true,
+				description: 'The ID of the chat',
+				type: 'number'
+			},
+			file: {
+				alias: 'f',
+				demandOption: true,
+				description: 'The file to use',
+				type: 'string'
+			}
+		}, argv => argv.exec( 'sendMessage', argv.chat, fs.readFileSync( argv.file, 'UTF-8' ) ) )
 		.help();
 
 	return new Bluebird( ( resolve, reject ) => {
