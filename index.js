@@ -5,4 +5,4 @@ let cli = require( './src/cli.js' )
 	, console = require( 'console' )
 	;
 
-cli( process.argv.slice( 2 ) ).then( d => console.info( d ), e => console.error( e.message ) );
+cli( process.argv.slice( 2 ) ).then( output => console.info( util.inspect( output, false, null ) ), e => console.error( e.message ) );
