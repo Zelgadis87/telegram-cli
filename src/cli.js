@@ -57,7 +57,14 @@ function cli( args ) {
 				description: 'The file to use',
 				type: 'string'
 			}
-		}, argv => argv.exec( 'sendMessage', argv.chat, fs.readFileSync( argv.file, 'UTF-8' ) ) )
+		}, argv => {
+			let options = {};
+			if ( argv.file.match( /^.+\.md$/ ) )
+				options.parse_mode = 'Markdown';
+			else if ( argv.file.match( /^.+\.html$/ ) )
+				options.parse_mode = 'HTML';
+			argv.exec( 'sendMessage', argv.chat, fs.readFileSync( argv.file, 'UTF-8' ), options );
+		} )
 		.help();
 
 	return new Bluebird( ( resolve, reject ) => {
